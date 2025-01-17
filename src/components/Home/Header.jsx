@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -13,20 +13,21 @@ import DrawerComp from "./DrawerComp";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { TabContext, TabPanel,TabList } from "@mui/lab";
-import HomePage from "../../pages/home";
-import AboutUsPage from "../../pages/aboutus";
-import ServicesPage from "../../pages/services";
-import ContactUsPage from "../../pages/contactus";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import HomePage from "../../pages/Home/home";
+import AboutUsPage from "../../pages/Home/aboutus";
+import ServicesPage from "../../pages/Home/services";
+import ContactUsPage from "../../pages/Home/contactus";
+import { BrowserRouter, Route, Routes, useLocation, useNavigate,Link } from "react-router-dom";
 import LoginPage from "../../pages/LoginPage/login";
 import RegisterPage from "../../pages/RegisterPage/register";
 
 export default function Header() {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   const navigate = useNavigate();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  const Pages = ["HOME", "About Us", "Services", "Contact Us"];
+  const Pages = ["HOME", "About Us",  "Contact Us","Services"];
+
   function handleChange(event, newValue) {
     setValue(newValue);
     switch (newValue) {
@@ -72,9 +73,12 @@ export default function Header() {
                 onChange={(event, value) => handleChange(event, value)}
                 indicatorColor="secondary"
               >
+                
                 {Pages.map((value, index) => (
                   <Tab key={index} label={value}></Tab>
+                  
                 ))}
+                
               </Tabs>
               <Button
                 sx={{ marginLeft: "auto", backgroundColor: "#F9AA33" }}
@@ -96,18 +100,17 @@ export default function Header() {
         </Toolbar>
         
       </AppBar>
-     
-     <Routes>
+    
 
+     {/* <Routes>
                   <Route path="/home" element={<HomePage />} />
                   <Route path="/about" element={<AboutUsPage />} />
                   <Route path="/contact" element={<ContactUsPage />} />
                   <Route path="/services" element={<ServicesPage />} />
                   <Route path="/login" element={<LoginPage/>} />
                   <Route path="/signup" element={<RegisterPage/>} />
+    </Routes> */}
 
-    </Routes>
-
-    </React.Fragment>
+    </React.Fragment> 
   );
 }
