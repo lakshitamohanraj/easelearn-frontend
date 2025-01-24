@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "ease-learn",
+=======
+  "name": "easelearn-web",
+>>>>>>> 7d53a95961046e5d11c35c195dc90ab688f4b38d
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +14,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
+=======
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.3.1",
+    "@mui/lab": "^6.0.0-beta.22",
+    "@mui/material": "^6.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.1.1"
+>>>>>>> 7d53a95961046e5d11c35c195dc90ab688f4b38d
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -24,7 +39,11 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
+<<<<<<< HEAD
     "postcss": "^8.4.49",
+=======
+    "postcss": "^8.5.0",
+>>>>>>> 7d53a95961046e5d11c35c195dc90ab688f4b38d
     "tailwindcss": "^3.4.17",
     "vite": "^6.0.5"
   }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 :root {
+=======
+/* :root {
+>>>>>>> 7d53a95961046e5d11c35c195dc90ab688f4b38d
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,7 +69,12 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+<<<<<<< HEAD
 }
+=======
+} */
+
+>>>>>>> 7d53a95961046e5d11c35c195dc90ab688f4b38d
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
