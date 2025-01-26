@@ -1,19 +1,4 @@
-<<<<<<< HEAD
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import LoginPage from './student/pages/LoginPage/LoginPage'
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-    hello
-    <LoginPage/>
-    </>
-=======
 
 import './App.css'
 import  Header  from './components/Home'
@@ -27,6 +12,9 @@ import ServicesPage from './pages/Home/services';
 import LoginPage from './pages/LoginPage/login';
 import RegisterPage from './pages/RegisterPage/register';
 import Footer from './pages/Home/footer';
+import StudentDashboard from './pages/Dashboard/StudentDashboard';
+import SelectTeachers from "./pages/SearchTeachers/SearchTeacher"; 
+
 
 
 function App() {
@@ -44,11 +32,12 @@ function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route path="/select-teachers" element={<SelectTeachers/>}  /> 
       </Routes>
     </div>
     {!hideHeaderRoutes.includes(location.pathname) && <Footer />}
   </>
->>>>>>> 7d53a95961046e5d11c35c195dc90ab688f4b38d
   )
 }
 
