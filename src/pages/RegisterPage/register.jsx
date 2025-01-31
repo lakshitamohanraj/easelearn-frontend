@@ -17,7 +17,7 @@ const RegisterPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const { role } = useSelector((state) => state.auth.role);
+  const role  = useSelector((state) => state.auth.role);
 
   const jwt=localStorage.getItem("jwt");
 

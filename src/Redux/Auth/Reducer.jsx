@@ -24,7 +24,10 @@ import {
       case LOGIN_REQUEST:
         return { ...state, isLoading: true, error: null };
       case REGISTER_SUCCESS:
-        return { ...state, isLoading: false };
+        return { ...state, isLoading: false , 
+          user: action.payload.user,
+          role : action.payload.role 
+      };
       case REGISTER_FAILURE:
       case LOGIN_FAILURE:
         return { ...state, isLoading: false, error: action.payload };

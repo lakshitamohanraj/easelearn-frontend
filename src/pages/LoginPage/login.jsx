@@ -9,6 +9,7 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch=useDispatch();
+   const role  = useSelector((state) => state.auth.role);
   const jwt=localStorage.getItem("jwt");
   useEffect(()=>{
     if(jwt){
@@ -16,6 +17,18 @@ const LoginPage = () => {
     }
   
   },[jwt])
+  useEffect(() => {
+     if(role){
+     if (role === "student") {
+       navigate("/student-dashboard");
+     } 
+     else {
+       navigate("/teacher-dashboard");
+     }
+   }
+   }, [role]);
+
+
   const handleLogin = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -23,7 +36,7 @@ const LoginPage = () => {
     const userData={
       email: data.get("email"),
       password: data.get("password"),
-     
+      
     }
     console.log("login user",userData);
   
