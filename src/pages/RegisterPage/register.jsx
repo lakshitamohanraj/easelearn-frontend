@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getUser,register } from '../../Redux/Auth/Action';
 const RegisterPage = () => {
   // State hooks to store user inputs
   const [formData, setFormData] = useState({
@@ -7,9 +10,39 @@ const RegisterPage = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    role : ''
   });
+  const dispatch=useDispatch();
+  const { auth } = useSelector((store) => store);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  // Handle input changes to update state dynamically
+  const { role } = useSelector((state) => state.auth.role);
+
+  const jwt=localStorage.getItem("jwt");
+
+  useEffect(()=>{
+
+   
+    if(jwt){
+      dispatch(getUser(jwt))
+    }
+
+  },[jwt]);
+
+  useEffect(() => {
+    if(role){
+    if (role === "student") {
+      navigate("/student-dashboard");
+    } 
+    else {
+      navigate("/teacher-dashboard");
+    }
+  }
+  }, [role]);
+  
+
+
   const handleInputChange = (event) => {
     const { name, value } = event.target; // Extract the name and value from the event target
     setFormData({
@@ -19,10 +52,21 @@ const RegisterPage = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-    console.log('Form Data:', formData); // Log the form data for debugging or API submission
-    // Add validation or API call logic here
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
+    const userData={
+      name: data.get("name"),
+      email: data.get("email"),
+      password: data.get("password"),
+      confirmPassword: data.get("confirmPassword"),
+      role : data.get("role")
+      
+    }
+    console.log("user data",userData);
+    dispatch(register(userData))
+   
   };
 
   return (
@@ -37,6 +81,26 @@ const RegisterPage = () => {
 
           <div className="mt-6 sm:mx-auto sm:w-full w-[450px] bg-gray-100 p-6 rounded-lg">
             <form onSubmit={handleSubmit} className="space-y-6">
+
+            <div>
+                <label htmlFor="role" className="block text-sm font-medium text-gray-900">
+                  Role
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="role"
+                    name="role"
+                    type="text"
+                    value={formData.role}
+                    onChange={handleInputChange}
+                    required
+                    autoComplete="name"
+                    className="block w-full rounded-md bg-[#F4D0D0] px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
+                  />
+                </div>
+              </div>
+
+
               {/* Name Field */}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-900">
@@ -118,7 +182,7 @@ const RegisterPage = () => {
                 <button
                   type="submit"
                   className="flex w-3/4 justify-center rounded-md bg-[#CE4040] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-indigo-600"
-                >
+                  >
                   Register
                 </button>
               </div>

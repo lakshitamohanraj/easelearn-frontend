@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getUser,login } from '../../Redux/Auth/Action';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const dispatch=useDispatch();
+  const jwt=localStorage.getItem("jwt");
+  useEffect(()=>{
+    if(jwt){
+      dispatch(getUser(jwt))
+    }
+  
+  },[jwt])
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    
+    const userData={
+      email: data.get("email"),
+      password: data.get("password"),
+     
+    }
+    console.log("login user",userData);
+  
+    dispatch(login(userData));
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Add login logic here, such as API calls and state updates
-    console.log('Login Attempt:', { email, password });
   };
 
   return (

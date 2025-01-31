@@ -1,5 +1,4 @@
 
-
 import './App.css'
 import  Header  from './components/Home'
 import ParentHome from './components/Home'
@@ -13,8 +12,6 @@ import LoginPage from './pages/LoginPage/login';
 import RegisterPage from './pages/RegisterPage/register';
 import Footer from './pages/Home/footer';
 import StudentDashboard from './pages/Dashboard/StudentDashboard';
-import SelectTeachers from "./pages/SearchTeachers/SearchTeacher"; 
-
 
 
 function App() {
@@ -33,7 +30,9 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route path="/select-teachers" element={<SelectTeachers/>}  /> 
+        {/* <Route path="/select-teachers" element={<SelectTeachers/>}  />  */}
+        
+        
       </Routes>
     </div>
     {!hideHeaderRoutes.includes(location.pathname) && <Footer />}

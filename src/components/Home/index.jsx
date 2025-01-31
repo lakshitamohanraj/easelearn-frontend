@@ -7,7 +7,6 @@ export default function ParentHome(){
     return (
         <>
           <Header/>
-          
         </>
     )
 }
