@@ -12,6 +12,8 @@ import LoginPage from './pages/LoginPage/login';
 import RegisterPage from './pages/RegisterPage/register';
 import Footer from './pages/Home/footer';
 import StudentDashboard from './pages/Dashboard/StudentDashboard';
+import SetupProfile from './components/SetupProfile/SetupProfile';
+
 
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route path="/SetupProfile" element={<SetupProfile/>} />
         {/* <Route path="/select-teachers" element={<SelectTeachers/>}  />  */}
         
         

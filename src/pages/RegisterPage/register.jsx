@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUser,register } from '../../Redux/Auth/Action';
+
 const RegisterPage = () => {
   // State hooks to store user inputs
   const [formData, setFormData] = useState({
@@ -36,7 +37,9 @@ const RegisterPage = () => {
       navigate("/student-dashboard");
     } 
     else {
-      navigate("/teacher-dashboard");
+      //navigate("/teacher-dashboard");
+      navigate("/SetupProfile");
+
     }
   }
   }, [role]);
@@ -72,7 +75,7 @@ const RegisterPage = () => {
   return (
     <>
       <div className="flex h-screen items-center justify-center bg-white-50">
-        <div className="w-full w-[600px] rounded-lg bg-[#CE4040] p-8 shadow-lg">
+        <div className="w-full w-[600px] rounded-lg bg-[#4a6572] p-8 shadow-lg">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-white">
               Create your account
@@ -115,7 +118,7 @@ const RegisterPage = () => {
                     onChange={handleInputChange}
                     required
                     autoComplete="name"
-                    className="block w-full rounded-md bg-[#F4D0D0] px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
+                    className="block w-full rounded-md  px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
                   />
                 </div>
               </div>
@@ -134,7 +137,7 @@ const RegisterPage = () => {
                     onChange={handleInputChange}
                     required
                     autoComplete="email"
-                    className="block w-full rounded-md bg-[#F4D0D0] px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
+                    className="block w-full rounded-md  px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
                   />
                 </div>
               </div>
@@ -153,7 +156,7 @@ const RegisterPage = () => {
                     onChange={handleInputChange}
                     required
                     autoComplete="new-password"
-                    className="block w-full rounded-md bg-[#F4D0D0] px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
+                    className="block w-full rounded-md  px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
                   />
                 </div>
               </div>
@@ -172,7 +175,7 @@ const RegisterPage = () => {
                     onChange={handleInputChange}
                     required
                     autoComplete="new-password"
-                    className="block w-full rounded-md bg-[#F4D0D0] px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
+                    className="block w-full rounded-md  px-3 py-2 text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-white"
                   />
                 </div>
               </div>
@@ -181,7 +184,7 @@ const RegisterPage = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="flex w-3/4 justify-center rounded-md bg-[#CE4040] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-indigo-600"
+                  className="flex w-3/4 justify-center rounded-md bg-[#4a6572] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-indigo-600"
                   >
                   Register
                 </button>

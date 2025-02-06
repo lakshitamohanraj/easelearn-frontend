@@ -13,10 +13,12 @@ import {
   
   const initialState = {
     user: null,
+    userId: null, // New field for storing userId
     isLoading: false,
     error: null,
     role: ""
-  };
+};
+
   
   const authReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -26,15 +28,19 @@ import {
       case REGISTER_SUCCESS:
         return { ...state, isLoading: false , 
           user: action.payload.user,
-          role : action.payload.role 
+          userId: action.payload.userId, // Storing userId
+          role: action.payload.role
+
       };
       case REGISTER_FAILURE:
       case LOGIN_FAILURE:
         return { ...state, isLoading: false, error: action.payload };
       case LOGIN_SUCCESS:
         return { ...state, isLoading: false ,
-          user: action.payload.user, // user update
-          role: action.payload.role // role update
+          user: action.payload.user,
+          userId: action.payload.userId, // Storing userId
+          role: action.payload.role
+
          };
       case GET_USER_REQUEST:
         return { ...state, isLoading: true, error: null };
@@ -44,7 +50,7 @@ import {
         return { ...state, isLoading: false, error: action.payload };
         case LOGOUT:
           localStorage.removeItem("jwt");
-          return { ...state, jwt: null, user: null ,role:""};
+          return { ...state, jwt: null, user: null ,userId: null,role:""};
       default:
         return state;
     }
