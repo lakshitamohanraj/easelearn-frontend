@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -14,32 +14,33 @@ const RegisterPage = () => {
     role : ''
   });
   const dispatch=useDispatch();
-  const { auth } = useSelector((store) => store);
+  // const { auth } = useSelector((store) => store);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const role  = useSelector((state) => state.auth.role);
-
+  const auth = useSelector((state) => state.auth);
+  const role = auth.role;
+  const userId = auth.userId;
+ 
   const jwt=localStorage.getItem("jwt");
 
   useEffect(()=>{
-
-   
     if(jwt){
       dispatch(getUser(jwt))
     }
 
   },[jwt]);
 
-  useEffect(() => {
+   useEffect(() => {
     if(role){
     if (role === "student") {
+      console.log("ID",userId);
       navigate("/student-dashboard");
     } 
     else {
       //navigate("/teacher-dashboard");
+      console.log("ID",userId);
       navigate("/SetupProfile");
-
     }
   }
   }, [role]);

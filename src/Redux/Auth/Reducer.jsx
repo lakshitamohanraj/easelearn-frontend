@@ -12,35 +12,34 @@ import {
   } from "./ActionTypes";
   
   const initialState = {
-    user: null,
-    userId: null, // New field for storing userId
+    // user: null,
     isLoading: false,
     error: null,
-    role: ""
-};
-
+    role: "",
+    userId:null
+  };
   
   const authReducer = (state = initialState, action) => {
+  
     switch (action.type) {
       case REGISTER_REQUEST:
       case LOGIN_REQUEST:
         return { ...state, isLoading: true, error: null };
       case REGISTER_SUCCESS:
+        // console.log("Inside the action.payload user details",action.payload);
         return { ...state, isLoading: false , 
-          user: action.payload.user,
-          userId: action.payload.userId, // Storing userId
-          role: action.payload.role
-
+          // user: action.payload.user,
+          role : action.payload.role ,
+          userId : action.payload.userId
       };
       case REGISTER_FAILURE:
       case LOGIN_FAILURE:
         return { ...state, isLoading: false, error: action.payload };
       case LOGIN_SUCCESS:
         return { ...state, isLoading: false ,
-          user: action.payload.user,
-          userId: action.payload.userId, // Storing userId
-          role: action.payload.role
-
+          // user: action.payload.user, // user update
+          role: action.payload.role, // role update
+          userId : action.payload.userId
          };
       case GET_USER_REQUEST:
         return { ...state, isLoading: true, error: null };
@@ -50,7 +49,7 @@ import {
         return { ...state, isLoading: false, error: action.payload };
         case LOGOUT:
           localStorage.removeItem("jwt");
-          return { ...state, jwt: null, user: null ,userId: null,role:""};
+          return { ...state, jwt: null, user: null};
       default:
         return state;
     }

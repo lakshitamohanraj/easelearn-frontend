@@ -12,14 +12,11 @@ const SetupProfile = () => {
     const jwt=localStorage.getItem("jwt");
     const userId = useSelector((state) => state.auth.userId);
 
-
-
     // Profile Fields
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
     const [languages, setLanguages] = useState([]);
     const [dateOfJoin, setDateOfJoin] = useState("");
-
     // Education Fields
     const [educations, setEducations] = useState([]);
     
@@ -40,53 +37,78 @@ const SetupProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append("userId", userId);
-        formData.append("description", description);
-        formData.append("location", location);
-        // formData.append("date_of_join", new Date().toISOString().split("T")[0]);
-        // languages.forEach((lang, index) => formData.append(`languages[${index}]`, lang));
-
-        // educations.forEach((edu, index) => {
-        //     formData.append(`educations[${index}].name`, edu.name);
-        //     formData.append(`educations[${index}].description`, edu.description);
-        //     formData.append(`educations[${index}].startDate`, edu.startDate);
-        //     formData.append(`educations[${index}].endDate`, edu.endDate);
-        //     if (edu.proofFile) formData.append(`educations[${index}].proofFile`, edu.proofFile);
+        // const formData = new FormData();
+        // formData.append("userId", userId);
+        // formData.append("description", description);
+        // formData.append("location", location);
+     
+        // formData.append("language", JSON.stringify(languages)); // Send languages as JSON
+        // formData.append("dateOfJoin", new Date().toISOString().split("T")[0]);
+    
+        // // Convert `educations` to JSON and send proofFile separately
+        // const educationsWithoutFile = educations.map((edu, index) => {
+        //     if (edu.proofFile) {
+        //         formData.append(`proofFile_${index}`, edu.proofFile); // Send proof file separately
+        //     }
+        //     return {
+        //         name: edu.name,
+        //         description: edu.description,
+        //         startDate: edu.startDate,
+        //         endDate: edu.endDate,
+        //     };
         // });
-
-        // experiences.forEach((exp, index) => {
-        //     formData.append(`experiences[${index}].name`, exp.name);
-        //     formData.append(`experiences[${index}].description`, exp.description);
-        //     formData.append(`experiences[${index}].startDate`, exp.startDate);
-        //     formData.append(`experiences[${index}].endDate`, exp.endDate);
-        // });
-        // console.log(formData);
-        formData.append("language", JSON.stringify(languages)); // Send languages as JSON
-        formData.append("dateOfJoin", new Date().toISOString().split("T")[0]);
     
-        // Convert `educations` to JSON and send proofFile separately
-        const educationsWithoutFile = educations.map((edu, index) => {
-            if (edu.proofFile) {
-                formData.append(`proofFile_${index}`, edu.proofFile); // Send proof file separately
-            }
-            return {
-                name: edu.name,
-                description: edu.description,
-                startDate: edu.startDate,
-                endDate: edu.endDate,
-            };
-        });
+        // formData.append("educations", JSON.stringify(educationsWithoutFile)); // Send as JSON
     
-        formData.append("educations", JSON.stringify(educationsWithoutFile)); // Send as JSON
-    
-        // Convert `experiences` to JSON
-        formData.append("experiences", JSON.stringify(experiences));
+        // // Convert `experiences` to JSON
+        // formData.append("experiences", JSON.stringify(experiences));
     
         
  // Dispatch Redux action to submit profile
- dispatch(submitTeacherProfile(formData, jwt));
+//  dispatch(submitTeacherProfile(formData, jwt));
         
+const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+    });
+};
+
+const convertFilePromises = educations.map(async (edu) => ({
+    name: edu.name,
+    description: edu.description,
+    startDate: edu.startDate,
+    endDate: edu.endDate,
+    verified: true,
+    proofFile: edu.proofFile ? await convertFileToBase64(edu.proofFile) : null, // Convert file to Base64
+    proofURL: edu.proofFile ? URL.createObjectURL(edu.proofFile) : null // Temporary URL
+}));
+
+const processedEducations = await Promise.all(convertFilePromises);
+
+const payload = {
+    userId: userId,
+    description: description,
+    location: location,
+    language: languages,
+    dateOfJoin: new Date().toISOString().split("T")[0],
+    education: processedEducations,
+    experience: experiences.map((exp) => ({
+        name: exp.name,
+        description: exp.description,
+        startDate: exp.startDate,
+        endDate: exp.endDate
+    }))
+};
+
+console.log("Final JSON Payload:", payload); // Debugging
+
+// Dispatch Redux action with JSON payload
+dispatch(submitTeacherProfile(payload, jwt));
+
+
     };
 
     return (

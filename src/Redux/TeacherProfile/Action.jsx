@@ -7,26 +7,30 @@ import {
   CLEAR_TEACHER_PROFILE,
 } from "./ActionTypes";
 import { API_BASE_URL } from "../../config/api"; // Define your API base URL here
+import { useSelector } from 'react-redux';
 
 // Action to submit the teacher profile form
 export const submitTeacherProfile = (profileData, jwt) => async (dispatch) => {
-    const formDataObject = {};
-    profileData.forEach((value, key) => {
-        formDataObject[key] = value;
-    });
-    console.log(formDataObject);
+    // const formDataObject = {};
+    // profileData.forEach((value, key) => {
+    //     formDataObject[key] = value;
+    // });
+    // console.log(formDataObject);
       try {
     dispatch({ type: TEACHER_PROFILE_REQUEST });
-
+    const auth = useSelector((state)=>state.auth);
+    const userId = auth.userId; 
     const config = {
       headers: {
         Authorization: `Bearer ${jwt}`,
         "Content-Type": "multipart/form-data",
       },
     };
-
-    const {data}  = await axios.post(`${API_BASE_URL}/profile/create/${userId}`, profileData, config);
+    
+     console.log(userId,profileData);
+    const {data}  = await axios.post(`${API_BASE_URL}/profile/create/${userId}`, profileData);
     console.log("profile data savedddd (Save me) "+data);
+
     dispatch({
       type: TEACHER_PROFILE_SUCCESS,
       payload: data,

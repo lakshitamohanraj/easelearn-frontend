@@ -24,7 +24,7 @@ export const register = userData => async dispatch => {
     const response=await axios.post(`${API_BASE_URL}/auth/signup`, userData);
     const user = response.data;
     if(user.jwt) localStorage.setItem("jwt",user.jwt)
-    console.log("registerr :",user)
+    console.log("registered Response from Spring :",user)
     dispatch(registerSuccess(user));
     
   } catch (error) {

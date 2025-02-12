@@ -23,7 +23,7 @@ const LoginPage = () => {
        navigate("/student-dashboard");
      } 
      else {
-       navigate("/teacher-dashboard");
+       navigate("/SetupProfile");
      }
    }
    }, [role]);
